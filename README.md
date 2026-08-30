@@ -1,6 +1,6 @@
 # HỆ THỐNG TRÍ TUỆ NHÂN TẠO ĐA ỨNG DỤNG (Multi-Domain Intelligent System)
 
-**Đồ án môn học:** Xây dựng Hệ thống Thông minh  
+**Môn học:** Phát triển Hệ thống Thông minh  
 **Sinh viên thực hiện:** Nguyễn Ngọc Hoàng Nam (B23DCCN585)  
 
 Dự án này là một hệ thống AI đa nhiệm được thiết kế theo kiến trúc Client-Server, cung cấp 3 dịch vụ dự đoán tích hợp Suy luận dựa trên ca mẫu (Case-based Reasoning - XAI):
