@@ -1,0 +1,28 @@
+{
+  "application": "housing",
+  "selected_model": "Gradient Boosting",
+  "raw_features": [
+    "Diện tích",
+    "Số phòng ngủ",
+    "Số tầng",
+    "Quận",
+    "Loại hình nhà ở",
+    "Giấy tờ pháp lý"
+  ],
+  "target_unit": "billion VND",
+  "split": "group-aware approx. 70/15/15; selection on validation; one final test evaluation",
+  "selection_metric": "MAE",
+  "test_metrics": {
+    "MAE": 1.8184014698018847,
+    "MSE": 26.509051188936574,
+    "RMSE": 5.148694124623891,
+    "R2": 0.5173682346932794
+  },
+  "validation_absolute_error_q90": 3.5950099967412794,
+  "uncertainty_note": "Heuristic prediction range based on validation absolute-error q90; not a statistical confidence interval",
+  "final_input_shape": [
+    53728,
+    42
+  ],
+  "random_state": 42
+}

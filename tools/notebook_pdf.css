@@ -1,0 +1,90 @@
+@page {
+  size: A4;
+  margin: 12mm 10mm 14mm;
+}
+
+html,
+body,
+.jp-Notebook {
+  width: auto !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.jp-Cell,
+.jp-Cell-inputWrapper,
+.jp-Cell-outputWrapper,
+.jp-OutputArea,
+.jp-OutputArea-output,
+.jp-RenderedImage,
+.jp-RenderedHTMLCommon {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  min-width: 0 !important;
+  overflow: visible !important;
+}
+
+.jp-Cell-inputWrapper {
+  display: block !important;
+}
+
+.jp-InputPrompt,
+.jp-OutputArea-prompt {
+  display: none !important;
+}
+
+.jp-InputArea,
+.jp-OutputArea-output {
+  margin: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.jp-RenderedImage img,
+.jp-OutputArea-output img {
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+}
+
+img,
+svg,
+canvas {
+  display: block !important;
+  width: auto !important;
+  max-width: 100% !important;
+  height: auto !important;
+  object-fit: contain !important;
+}
+
+pre,
+code,
+.highlight pre,
+.jp-InputArea-editor pre {
+  white-space: pre-wrap !important;
+  overflow-wrap: anywhere !important;
+  word-break: break-word !important;
+}
+
+pre,
+.jp-InputArea-editor {
+  font-size: 7.5pt !important;
+  line-height: 1.28 !important;
+}
+
+table,
+.dataframe {
+  width: auto !important;
+  max-width: 100% !important;
+  font-size: 8pt !important;
+}
+
+th,
+td {
+  overflow-wrap: anywhere !important;
+}

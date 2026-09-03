@@ -92,6 +92,14 @@
             border-bottom: 2px solid #edf2f4;
             padding-bottom: 10px;
         }
+        .system-note { font-size: 0.82rem; line-height: 1.45; }
+        @media (max-width: 576px) {
+            body { align-items: flex-start; padding: 0.75rem 0; }
+            .glass-card { padding: 1rem; border-radius: 16px; }
+            .nav-pills .nav-link { padding: 10px 6px; font-size: 0.82rem; }
+            .tab-title { font-size: 1.1rem; }
+            .result-box { padding: 1rem; }
+        }
     </style>
 </head>
 <body>
@@ -152,6 +160,7 @@
                                 <select id="d_gender" class="form-select">
                                     <option value="Male">Nam</option>
                                     <option value="Female">Nữ</option>
+                                    <option value="Other">Khác</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
@@ -160,13 +169,16 @@
                                     <option value="never">Chưa từng hút</option>
                                     <option value="former">Đã bỏ thuốc</option>
                                     <option value="current">Đang hút thuốc</option>
+                                    <option value="not current">Hiện không hút</option>
+                                    <option value="ever">Đã từng hút</option>
+                                    <option value="No Info">Không có thông tin</option>
                                 </select>
                             </div>
                         </div>
                         <button id="btn_diabetes" class="btn btn-ai btn-health w-100" onclick="predictDiabetes()">
                             <i class="fas fa-search-plus me-2"></i>Bắt đầu Phân tích AI
                         </button>
-                        <div id="d_result" class="result-box alert alert-danger"></div>
+                        <div id="d_result" class="result-box alert alert-danger" role="status" aria-live="polite"></div>
                     </div>
 
                     <!-- ================= ỨNG DỤNG 2: GIÁ NHÀ ================= -->
@@ -207,13 +219,16 @@
                                 <select id="h_type" class="form-select">
                                     <option value="Nhà ngõ, hẻm">Nhà ngõ, hẻm</option>
                                     <option value="Nhà mặt phố, mặt tiền">Nhà mặt phố, mặt tiền</option>
-                                    <option value="Nhà biệt thự, liền kề">Nhà biệt thự, liền kề</option>
+                                    <option value="Nhà phố liền kề">Nhà phố liền kề</option>
+                                    <option value="Nhà biệt thự">Nhà biệt thự</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Tình trạng Pháp lý:</label>
                                 <select id="h_legal" class="form-select">
                                     <option value="Đã có sổ">Đã có sổ đỏ / sổ hồng</option>
+                                    <option value="Đang chờ sổ">Đang chờ sổ</option>
+                                    <option value="Giấy tờ khác">Giấy tờ khác</option>
                                     <option value="Unknown">Không xác định / Đang chờ sổ</option>
                                 </select>
                             </div>
@@ -221,71 +236,52 @@
                         <button id="btn_housing" class="btn btn-ai btn-house w-100" onclick="predictHousing()">
                             <i class="fas fa-calculator me-2"></i>Định giá bằng AI
                         </button>
-                        <div id="h_result" class="result-box alert alert-success"></div>
+                        <div id="h_result" class="result-box alert alert-success" role="status" aria-live="polite"></div>
                     </div>
 
                     <!-- ================= ỨNG DỤNG 3: E-COMMERCE ================= -->
                     <div class="tab-pane fade" id="ecommerce">
-                        <h4 class="tab-title"><i class="fas fa-chart-line text-warning me-2"></i>Dự báo Mức độ Hài lòng KH</h4>
+                        <h4 class="tab-title"><i class="fas fa-comments text-warning me-2"></i>Khám phá Sở thích từ Review</h4>
+                        <p class="text-muted small mb-3">Nhập nhận xét bằng tiếng Anh như dữ liệu huấn luyện. Hệ thống phân loại nhóm sản phẩm khách hàng quan tâm.</p>
                         <div class="row g-3 mb-4">
-                            <div class="col-md-6">
-                                <label class="form-label">Tổng mức chi tiêu (USD):</label>
-                                <input type="number" id="e_spend" class="form-control" value="1200">
+                            <div class="col-12">
+                                <label class="form-label" for="e_title">Tiêu đề review (không bắt buộc):</label>
+                                <input type="text" id="e_title" class="form-control" maxlength="200" value="Perfect summer dress">
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Số lượng món hàng (Items):</label>
-                                <input type="number" id="e_items" class="form-control" value="15">
+                            <div class="col-12">
+                                <label class="form-label" for="e_review">Nội dung review:</label>
+                                <textarea id="e_review" class="form-control" rows="4" minlength="10" maxlength="3000" required>This dress is light, comfortable and fits beautifully for summer.</textarea>
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Số ngày từ lần mua cuối:</label>
-                                <input type="number" id="e_days" class="form-control" value="12">
+                            <div class="col-6 col-md-3">
+                                <label class="form-label" for="e_age">Độ tuổi:</label>
+                                <input type="number" id="e_age" class="form-control" value="30" min="18" max="99">
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Đánh giá trung bình (1-5 Sao):</label>
-                                <input type="number" id="e_rating" class="form-control" value="4.5" step="0.1" min="1" max="5">
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Độ tuổi:</label>
-                                <input type="number" id="e_age" class="form-control" value="30">
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Giới tính:</label>
-                                <select id="e_gender" class="form-select">
-                                    <option value="Male">Nam</option>
-                                    <option value="Female">Nữ</option>
+                            <div class="col-6 col-md-3">
+                                <label class="form-label" for="e_rating">Rating:</label>
+                                <select id="e_rating" class="form-select">
+                                    <option value="5">5 sao</option>
+                                    <option value="4">4 sao</option>
+                                    <option value="3">3 sao</option>
+                                    <option value="2">2 sao</option>
+                                    <option value="1">1 sao</option>
                                 </select>
                             </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Áp dụng mã giảm giá:</label>
-                                <select id="e_disc" class="form-select">
-                                    <option value="true">Có sử dụng</option>
-                                    <option value="false">Không sử dụng</option>
+                            <div class="col-6 col-md-3">
+                                <label class="form-label" for="e_recommend">Khuyến nghị:</label>
+                                <select id="e_recommend" class="form-select">
+                                    <option value="true">Có</option>
+                                    <option value="false">Không</option>
                                 </select>
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Khu vực (Dữ liệu gốc):</label>
-                                <select id="e_city" class="form-select">
-                                    <option value="New York">New York</option>
-                                    <option value="Los Angeles">Los Angeles</option>
-                                    <option value="Chicago">Chicago</option>
-                                    <option value="San Francisco">San Francisco</option>
-                                    <option value="Miami">Miami</option>
-                                    <option value="Houston">Houston</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label class="form-label">Hạng thẻ thành viên:</label>
-                                <select id="e_mem" class="form-select">
-                                    <option value="Gold">Hạng Vàng (Gold)</option>
-                                    <option value="Silver">Hạng Bạc (Silver)</option>
-                                    <option value="Bronze">Hạng Đồng (Bronze)</option>
-                                </select>
+                            <div class="col-6 col-md-3">
+                                <label class="form-label" for="e_feedback">Lượt phản hồi tích cực:</label>
+                                <input type="number" id="e_feedback" class="form-control" value="3" min="0" max="10000">
                             </div>
                         </div>
                         <button id="btn_ecommerce" class="btn btn-ai btn-ecommerce w-100" onclick="predictEcommerce()">
-                            <i class="fas fa-user-check me-2"></i>Phân tích Hành vi
+                            <i class="fas fa-tags me-2"></i>Dự đoán Nhóm Sở thích
                         </button>
-                        <div id="e_result" class="result-box alert alert-warning"></div>
+                        <div id="e_result" class="result-box alert alert-warning" role="status" aria-live="polite"></div>
                     </div>
                 </div>
             </div>
@@ -296,7 +292,14 @@
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    const API_URL = "http://192.168.110.198:8000";
+    // FastAPI phục vụ chính file này, do đó dùng cùng origin và không hard-code IP cá nhân.
+    const API_URL = window.location.origin;
+
+    function escapeHtml(value) {
+        return String(value).replace(/[&<>'"]/g, char => ({
+            '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;'
+        })[char]);
+    }
     // Hàm vẽ bảng dữ liệu tương đồng
     function renderTable(cases, title) {
         if (!cases || cases.length === 0) return "";
@@ -304,11 +307,11 @@
                     <div class="table-responsive"><table class="table table-sm table-hover table-bordered bg-white" style="font-size:0.9rem">
                     <thead class="table-light"><tr>`;
         const keys = Object.keys(cases[0]);
-        keys.forEach(k => html += `<th>${k}</th>`);
+        keys.forEach(k => html += `<th>${escapeHtml(k)}</th>`);
         html += `</tr></thead><tbody>`;
         cases.forEach(c => {
             html += `<tr>`;
-            keys.forEach(k => html += `<td>${c[k]}</td>`);
+            keys.forEach(k => html += `<td>${escapeHtml(c[k])}</td>`);
             html += `</tr>`;
         });
         html += `</tbody></table></div></div>`;
@@ -330,6 +333,12 @@
                 body: JSON.stringify(payload)
             });
             const data = await res.json();
+            if (!res.ok) {
+                const detail = Array.isArray(data.detail)
+                    ? data.detail.map(item => item.msg).join('; ')
+                    : (data.detail || `HTTP ${res.status}`);
+                throw new Error(detail);
+            }
 
             // Format kết quả chính + Bảng dữ liệu tương tự
             let finalHtml = formatResponse(data);
@@ -340,7 +349,7 @@
             resultDiv.innerHTML = finalHtml;
             resultDiv.style.display = "block";
         } catch (err) {
-            resultDiv.innerHTML = `<i class="fas fa-exclamation-triangle me-2"></i>Lỗi kết nối máy chủ!`;
+            resultDiv.innerHTML = `<i class="fas fa-exclamation-triangle me-2"></i>${escapeHtml(err.message || 'Lỗi kết nối máy chủ')}`;
             resultDiv.style.display = "block";
         } finally {
             btn.innerHTML = originalText;
@@ -355,8 +364,10 @@
             gender: document.getElementById('d_gender').value, smoking_history: document.getElementById('d_smoke').value
         };
         sendRequest("/predict/diabetes", payload, "d_result", "btn_diabetes", d => {
-            const icon = d.prediction === "Khỏe mạnh" ? "fa-check-circle text-success" : "fa-exclamation-circle text-danger";
-            return `<i class="fas ${icon} fa-2x mb-2 d-block"></i>Kết quả: <b>${d.prediction}</b><br><small class="text-muted">Độ tự tin: ${d.confidence}%</small>`;
+            const icon = d.predicted_class === 0 ? "fa-check-circle text-success" : "fa-exclamation-circle text-danger";
+            return `<i class="fas ${icon} fa-2x mb-2 d-block"></i>Kết quả: <b>${escapeHtml(d.prediction)}</b>
+                    <br><small class="text-muted">Xác suất nguy cơ: ${d.risk_probability}% · Độ tự tin nhãn dự đoán: ${d.confidence}%</small>
+                    <div class="system-note text-muted mt-2">${escapeHtml(d.disclaimer)}</div>`;
         });
     }
 
@@ -368,20 +379,29 @@
         };
         sendRequest("/predict/housing", payload, "h_result", "btn_housing", d => {
             return `<i class="fas fa-money-bill-wave fa-2x text-success mb-2 d-block"></i>Giá trị ước tính: <span class="fs-4 text-success">${d.predicted_price}</span> <b>${d.unit}</b>
-                    <br><small class="text-muted"><i class="fas fa-chart-bar me-1"></i> Khoảng giá dao động: <b>${d.lower_bound} - ${d.upper_bound} ${d.unit}</b></small>`;
+                    <br><small class="text-muted"><i class="fas fa-chart-bar me-1"></i> Khoảng bất định: <b>${d.lower_bound} - ${d.upper_bound} ${d.unit}</b></small>
+                    <div class="system-note text-muted mt-2">${escapeHtml(d.range_method)}</div>`;
         });
     }
 
     function predictEcommerce() {
         const payload = {
-            total_spend: parseFloat(document.getElementById('e_spend').value), items_purchased: parseInt(document.getElementById('e_items').value),
-            days_since_last_purchase: parseInt(document.getElementById('e_days').value), average_rating: parseFloat(document.getElementById('e_rating').value),
-            age: parseInt(document.getElementById('e_age').value), gender: document.getElementById('e_gender').value,
-            city: document.getElementById('e_city').value, membership_type: document.getElementById('e_mem').value,
-            discount_applied: document.getElementById('e_disc').value === "true"
+            title: document.getElementById('e_title').value,
+            review_text: document.getElementById('e_review').value,
+            age: parseInt(document.getElementById('e_age').value),
+            rating: parseInt(document.getElementById('e_rating').value),
+            recommended_ind: document.getElementById('e_recommend').value === "true",
+            positive_feedback_count: parseInt(document.getElementById('e_feedback').value)
         };
         sendRequest("/predict/ecommerce", payload, "e_result", "btn_ecommerce", d => {
-            return `<i class="fas fa-smile-beam fa-2x text-warning mb-2 d-block"></i>Hành vi dự kiến: <b>${d.prediction}</b><br><small class="text-muted">Độ tự tin: ${d.confidence}%</small>`;
+            const probabilities = Object.entries(d.class_probabilities || {})
+                .sort((a, b) => b[1] - a[1])
+                .map(([label, value]) => `<span class="badge bg-light text-dark border me-1 mb-1">${escapeHtml(label)}: ${value}%</span>`)
+                .join('');
+            return `<i class="fas fa-tags fa-2x text-warning mb-2 d-block"></i>Nhóm sở thích dự đoán: <b>${escapeHtml(d.interest)}</b>
+                    <br><small class="text-muted">Xác suất ước lượng: ${d.confidence}%</small>
+                    <div class="mt-2">${probabilities}</div>
+                    <div class="system-note text-muted mt-2">${escapeHtml(d.explanation)} ${escapeHtml(d.confidence_note)}</div>`;
         });
     }
 </script>

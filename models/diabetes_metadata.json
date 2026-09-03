@@ -1,0 +1,26 @@
+{
+  "application": "diabetes",
+  "selected_model": "Random Forest",
+  "raw_features": [
+    "age",
+    "bmi",
+    "hbA1c_level",
+    "blood_glucose_level",
+    "gender",
+    "smoking_history"
+  ],
+  "split": "70/15/15 stratified; model selection on validation; one final test evaluation",
+  "selection_metric": "F1 positive class",
+  "test_metrics": {
+    "Accuracy": 0.9615304202383441,
+    "Precision_1": 0.8305709023941068,
+    "Recall_1": 0.710236220472441,
+    "F1_1": 0.765704584040747,
+    "ROC_AUC": 0.9688987214582732
+  },
+  "final_input_shape": [
+    81306,
+    13
+  ],
+  "random_state": 42
+}

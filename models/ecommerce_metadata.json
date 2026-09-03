@@ -1,0 +1,189 @@
+{
+  "application": "ecommerce_interest_discovery",
+  "dataset": "Women's E-Commerce Clothing Reviews",
+  "dataset_url": "https://www.kaggle.com/datasets/nicapotato/womens-ecommerce-clothing-reviews",
+  "selected_model": "Logistic Regression",
+  "target": "Department Name",
+  "classes": [
+    "Bottoms",
+    "Dresses",
+    "Intimate",
+    "Jackets",
+    "Tops",
+    "Trend"
+  ],
+  "pipeline_features": [
+    "Review Combined",
+    "Age",
+    "Rating",
+    "Recommended IND",
+    "Positive Feedback Count"
+  ],
+  "api_fields": [
+    "title",
+    "review_text",
+    "age",
+    "rating",
+    "recommended_ind",
+    "positive_feedback_count"
+  ],
+  "excluded_leakage_features": [
+    "Division Name",
+    "Class Name"
+  ],
+  "group_only_feature": "Clothing ID",
+  "observations_original": 23486,
+  "observations_clean": 22623,
+  "class_distribution_clean": {
+    "Tops": 10047,
+    "Dresses": 6145,
+    "Bottoms": 3661,
+    "Intimate": 1650,
+    "Jackets": 1002,
+    "Trend": 118
+  },
+  "split_counts": {
+    "train": 16077,
+    "validation": 3211,
+    "test": 3335
+  },
+  "split": "approximately 70/15/15 with StratifiedGroupKFold grouped by Clothing ID after comment cleaning and de-duplication",
+  "selection_metric": "macro F1",
+  "test_metrics": {
+    "Accuracy": 0.8041979010494753,
+    "Precision_macro": 0.5817033879347314,
+    "Recall_macro": 0.6257475197749386,
+    "F1_macro": 0.5996778833714641,
+    "F1_weighted": 0.8069420385688036,
+    "ROC_AUC_OVR": 0.8952422182356713
+  },
+  "test_confusion_matrix": [
+    [
+      468,
+      10,
+      17,
+      2,
+      26,
+      0
+    ],
+    [
+      38,
+      843,
+      29,
+      9,
+      65,
+      3
+    ],
+    [
+      32,
+      44,
+      118,
+      7,
+      34,
+      0
+    ],
+    [
+      2,
+      1,
+      9,
+      97,
+      30,
+      0
+    ],
+    [
+      74,
+      37,
+      87,
+      77,
+      1156,
+      4
+    ],
+    [
+      3,
+      7,
+      0,
+      0,
+      6,
+      0
+    ]
+  ],
+  "test_per_class": {
+    "Bottoms": {
+      "precision": 0.7585089141004863,
+      "recall": 0.8948374760994264,
+      "f1-score": 0.8210526315789474,
+      "support": 523.0
+    },
+    "Dresses": {
+      "precision": 0.8949044585987261,
+      "recall": 0.8541033434650456,
+      "f1-score": 0.8740279937791602,
+      "support": 987.0
+    },
+    "Intimate": {
+      "precision": 0.45384615384615384,
+      "recall": 0.502127659574468,
+      "f1-score": 0.4767676767676768,
+      "support": 235.0
+    },
+    "Jackets": {
+      "precision": 0.5052083333333334,
+      "recall": 0.697841726618705,
+      "f1-score": 0.5861027190332326,
+      "support": 139.0
+    },
+    "Tops": {
+      "precision": 0.8777524677296887,
+      "recall": 0.805574912891986,
+      "f1-score": 0.8401162790697675,
+      "support": 1435.0
+    },
+    "Trend": {
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1-score": 0.0,
+      "support": 16.0
+    }
+  },
+  "representation_ablation_validation": [
+    {
+      "Representation": "Tabular only",
+      "Accuracy": 0.1146060417315478,
+      "Precision_macro": 0.18036751611381788,
+      "Recall_macro": 0.21395138084538848,
+      "F1_macro": 0.09468710066998987,
+      "F1_weighted": 0.12307397892264887,
+      "ROC_AUC_OVR": 0.5425642868931032
+    },
+    {
+      "Representation": "Tabular + review TF-IDF",
+      "Accuracy": 0.8081594518841483,
+      "Precision_macro": 0.6100976739774152,
+      "Recall_macro": 0.5979658224452873,
+      "F1_macro": 0.6007329673935417,
+      "F1_weighted": 0.8091539696577137,
+      "ROC_AUC_OVR": 0.8747766171122772
+    }
+  ],
+  "text_representation": {
+    "model": "TF-IDF unigram/bigram fitted on train and concatenated with four scaled tabular features",
+    "demonstration": "Comment -> tokens -> IDs -> SVD co-occurrence embeddings",
+    "B": 4,
+    "T": 32,
+    "d": 32,
+    "token_id_shape": [
+      4,
+      32
+    ],
+    "token_embedding_shape": [
+      4,
+      32,
+      32
+    ]
+  },
+  "final_input_shape": [
+    19288,
+    8004
+  ],
+  "random_state": 42
+}

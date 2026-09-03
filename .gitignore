@@ -1,0 +1,25 @@
+.venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+.DS_Store
+Untitled.ipynb
+tmp/
+report_render*/
+output/
+submission_pdfs/
+deliverables/*.zip
+deliverables/*Corrected*
+deliverables/
+Bao_cao_ASG_02_da_sua*.docx
+Bao_cao_ASG_02_hoan_chinh*.docx
+AUDIT_FIX_SUMMARY.md
+ASG_02_pdf/
+slide-assign_02/
+legacy_data/
+legacy_demo/
+legacy_models/
+models/*_pipeline.joblib
+submission/*.pdf
+Womens Clothing E-Commerce Reviews.csv
